@@ -1,0 +1,22 @@
+use sha;
+create table payslip(payid int,emp_id int,basicpay double,house_rentallocation double,income_tax double,deduction double,gross_pay double,date date,status varchar(25),report varchar(45));
+insert into payslip(payid,emp_id,basicpay,status)
+values(1,1,15000,'yes'),
+(2,2,20000,'yes'),
+(3,3,'25000','yes'),
+(4,4,30000,'yes');
+select * from payslip;
+call emp_payslip();
+use sha;
+desc payslip;
+select * from payslip;
+update payslip
+set date='2022-02-28' where payid=1;
+update payslip
+set date='2022-02-28' where payid=2;
+update payslip
+set date='2022-02-28' where payid=3;
+update payslip
+set date='2022-02-28' where payid=4;
+select * from payslip;
+
