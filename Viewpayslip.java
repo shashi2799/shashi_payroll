@@ -1,0 +1,92 @@
+package Com.myfssbeans;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Viewpayslip {
+	
+	public static void main(String[] args) throws NumberFormatException, IOException{
+		
+		Connection con=null;
+		PreparedStatement ps=null;
+		Statement st=null;
+		ResultSet rs=null;
+	    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	  //  System.out.println("Enter the employee first name");
+	 
+	 // int emp_id=Integer.parseInt(br.readLine());
+		
+	  	String qry="Select * from sha.payslip ";
+		br.close();
+		String url="jdbc:mysql://localhost:3306";
+		String uname="root";
+		String password="Gopal123";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=(Connection) DriverManager.getConnection(url, uname, password);
+			 st=con.createStatement();
+		
+			 rs=((java.sql.Statement) st).executeQuery(qry);
+			// System.out.println("pl_id Emp Id  salary_id  leave_id  date  report   totalamount   basicsalary  hra deducton incom_tax  gross_pay status");
+			while(rs.next()) {
+				String EmployeeDetails="  ";
+				for(int i=1;i<=10;i++) {
+					EmployeeDetails += rs.getString(i)+ "     ";
+				}
+				System.out.println(EmployeeDetails);
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+		
+			
+			e.printStackTrace();
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(con!=null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if(st!=null) {
+					try {
+						st.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if(rs!=null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		//	("all costly resources are closed");
+		}
+	}
+		
+	}
+
+
+
